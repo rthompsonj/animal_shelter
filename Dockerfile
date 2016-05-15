@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 MAINTAINER Robert Thompson <rthompsonj@gmail.com>
 
 # system packages
-RUN apt-get update && apt-get install -y curl
+RUN apt-get update && apt-get install -y curl wget
 
 # get miniconda
 RUN curl -OL http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh

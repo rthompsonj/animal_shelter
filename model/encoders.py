@@ -1,4 +1,4 @@
-
+import numpy as np
 
 dayConversion = {
     'year':365,
@@ -75,7 +75,6 @@ def EncodeOutcome(value):
         return 0
 
 def EncodeSingleVariable(data):
-    import numpy as np
     import pandas as pd
     
     # get unique values
@@ -89,14 +88,24 @@ def EncodeSingleVariable(data):
         cnt += 1
 
     # loop through all values and assign the proper integers
-    vals = np.zeros(len(data),dtype=np.int32)
-    i=0
+    vals = []
     for d in data.iteritems():
-        vals[i] = translator[d[1]]
-        i += 1
-        
+        vals.append(translator[d[1]])
+
+    # reverse the translator so integer is the key and string is the val
     reverse_translator = {}
     for k,v in translator.iteritems():
         reverse_translator[v] = k
     
     return pd.Series(vals, index=data.index), reverse_translator
+
+
+def MedianNulls(df):
+    """Replace missing values (-1) with the median of valid values."""
+    for k,v in df.iteritems():
+        unknowns = (v == -1)
+        value    = np.median(v[~unknowns])
+        df[k][unknowns] = value
+
+        print 'Replacing %d unknown %s with %d' % (len(np.where(unknowns==True)[0]),k,value)
+    print ''

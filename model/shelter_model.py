@@ -19,7 +19,7 @@ translator = dict(
     Sterility = {0:'Not sterile', 1:'Sterile'},    
 )
 
-class Model(object):
+class ShelterModel(object):
     def __init__(self, *args, **kwargs):
         self.translator = translator
         
@@ -75,13 +75,18 @@ class Model(object):
         df['Color']      = data['Color'].map(encode.EncodeColor)
         df['MixedBreed'] = data['Breed'].map(encode.EncodeBreed)
         df['Outcome']    = data['Outcome Type'].map(encode.EncodeOutcome)
-                
+
+        self.max_age = np.max(df['AgeInDays'])
+        self.min_age = np.min(df['AgeInDays'])
+
+        encode.MedianNulls(df)
         self.df = df
         
     def create_model(self):
         self.x = self.df[[
-            'Named','AgeInDays','Sex',
-            'Sterility','AnimalType','Color','MixedBreed'
+            'AgeInDays','MixedBreed','Named',
+            'Sex','Sterility','AnimalType',
+            #'Color',
         ]]
         self.y = self.df['Outcome']
 
@@ -94,8 +99,14 @@ class Model(object):
         self.model.fit(x_train, y_train)
         pred = self.model.predict(x_test)
         self.accuracy_score = accuracy_score(y_test, pred)
-        print('Accuracy score:',self.accuracy_score)
-              
+        print('Accuracy score: %0.2f' % self.accuracy_score)
+
+    def predict(self, animal):
+        print 'predict',self.model.predict(animal)
+        return self.model.predict(animal)[0]
+    def predict_probability(self, animal):
+        print 'proba',self.model.predict_proba(animal)
+        return self.model.predict_proba(animal)[0]
 
 if __name__ == '__main__':
-    model = Model()
+    shelter_model = ShelterModel()

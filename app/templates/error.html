@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/w3.css') }}">
+  </head>
+  <body>
+    <div align="center">
+      <h3>
+        Missing the following from the form:<br>
+        {% for s in missing %}
+        <b>{{ s }}</b><br>
+        {% endfor %}
+        Please fill these out to continue.
+      </h3>
+
+    <form action="/" method="GET">
+      <input type="submit" value="Back">
+    </form>
+
+    </div>
+  </body>
+</html>

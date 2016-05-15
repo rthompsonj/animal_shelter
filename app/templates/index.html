@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/w3.css') }}">
+    <style>
+      *{
+      margin:0;
+      padding:0;
+      }
+      .item{
+          vertical-align: middle;
+          margin-right: 5px;
+      }
+      div.dropdown {
+          margin-left: 48%;
+      }
+      div.button {
+          margin-left: 49%;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <div align="center">
+      <h1>Animal Adoption Predictor</h1>
+      <h3>Austin Animal Shelter</h3>
+      <hr>      
+      
+      <form action="/query" method="POST">
+        <label><h4><u>Pet Name</u></h4>
+          <input type="text" name="name">
+        </label>
+        
+        <h4><u>Pet Age</u></h4>
+        <div class="dropdown" align="left">
+          <select name="age_years" class="item">
+            {% for year in age_options.years %}
+            <option value="{{ year }}"> {{ year }} </option>
+            {% endfor %}
+          </select>
+          Years        
+          <br>
+
+          <select name="age_months" class="item">
+            {% for month in age_options.months %}
+            <option value="{{ month }}"> {{ month }} </option>
+            {% endfor %}
+          </select>
+          Months
+          <br>
+
+          <select name="age_days" class="item">
+            {% for day in age_options.days %}
+            <option value="{{ day }}"> {{ day }} </option>
+            {% endfor %}
+          </select>
+          Days
+          <br>
+        </div>        
+        
+        <h4><u>Pet Type</u></h4>
+        <div class="button" align="left">
+        <input type="radio" name="animal_type" value="cat" class="item"> Cat<br>
+        <input type="radio" name="animal_type" value="dog" class="item"> Dog<br>
+        </div>
+        
+        <h4><u>Pet Sex</u></h4>
+        <div class="button" align="left">
+          <input type="radio" name="animal_sex" value="male"> Male<br>
+          <input type="radio" name="animal_sex" value="female"> Female<br>
+        </div>        
+        
+        <h4><u>Misc. Info</u></h4>
+        <div class="button" align="left">
+          <input type="checkbox" name="fixed" value="fixed" class="item"> Spayed/Neutered<br>
+          <input type="checkbox" name="mixed_breed" value="mixed_breed" class="item"> Mixed Breed<br>
+        </div>
+
+        <br>
+        <input type="submit" value="Submit">
+      </form>
+      
+    </div>
+
+</body>  
+</html>

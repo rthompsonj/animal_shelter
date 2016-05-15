@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/w3.css') }}">
+    <style>
+      div.stats { margin-left: 45% }
+    </style>
+  </head>
+  <body>
+    <div align="center">
+      <h3>
+      This pet will likely be <b>{{ result }}</b>.
+      </h3>
+
+      <div align='left' class="stats">
+      {% for k,v in prob.iteritems() %}
+      {{ v }}%  {{ k }}<br>
+      {% endfor %}
+      </div>
+      <br>
+      
+      {% if has_name %}
+      (If your pet was found without a name, they would likely be <b>{{ hypothetical }}</b>.)
+      {% endif %}
+      {% if not has_name %}
+      (If your pet had a name, they would likely be <b>{{ hypothetical }}</b>.)
+      {% endif %}
+
+      <br><br>
+      
+    <form action="/" method="GET">
+      <input type="submit" value="Back">
+    </form>
+
+    </div>
+  </body>
+</html>

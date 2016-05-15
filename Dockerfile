@@ -21,7 +21,7 @@ RUN conda install -y \
 
 COPY app /app
 COPY model /model
-WORKDIR "/model"
+WORKDIR "/app"
 
 expose 5000
 

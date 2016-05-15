@@ -67,6 +67,12 @@ def EncodeSexAndSterility(outcome):
 
     return (sex,sterility)
 
+def EncodeOutcome(value):
+    positive_outcomes = ['Adoption','Return to Owner']
+    if value in positive_outcomes:
+        return 1
+    else:
+        return 0
 
 def EncodeSingleVariable(data):
     import numpy as np
@@ -88,9 +94,9 @@ def EncodeSingleVariable(data):
     for d in data.iteritems():
         vals[i] = translator[d[1]]
         i += 1
-
+        
     reverse_translator = {}
     for k,v in translator.iteritems():
         reverse_translator[v] = k
     
-    return pd.Series(vals),reverse_translator
+    return pd.Series(vals, index=data.index), reverse_translator

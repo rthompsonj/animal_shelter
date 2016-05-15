@@ -102,10 +102,8 @@ class ShelterModel(object):
         print('Accuracy score: %0.2f' % self.accuracy_score)
 
     def predict(self, animal):
-        print 'predict',self.model.predict(animal)
         return self.model.predict(animal)[0]
     def predict_probability(self, animal):
-        print 'proba',self.model.predict_proba(animal)
         return self.model.predict_proba(animal)[0]
 
 if __name__ == '__main__':
